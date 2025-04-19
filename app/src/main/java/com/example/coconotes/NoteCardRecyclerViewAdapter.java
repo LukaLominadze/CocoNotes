@@ -34,7 +34,6 @@ public class NoteCardRecyclerViewAdapter extends RecyclerView.Adapter<NoteCardRe
     public void onBindViewHolder(@NonNull NoteCardRecyclerViewAdapter.MyViewHolder holder, int position) {
         holder.TitleTextView.setText(noteCardModels.get(position).getTitle());
         holder.SubTextView.setText(noteCardModels.get(position).getSubheading());
-        holder.NoteButton = noteCardModels.get(position).getButton();
     }
 
     @Override
@@ -46,14 +45,12 @@ public class NoteCardRecyclerViewAdapter extends RecyclerView.Adapter<NoteCardRe
 
         public TextView TitleTextView;
         public TextView SubTextView;
-        public Button NoteButton;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             TitleTextView = itemView.findViewById(R.id.rowTitleTextView);
             SubTextView = itemView.findViewById(R.id.rowSubTextView);
-            NoteButton = itemView.findViewById(R.id.noteCardButton);
         }
     }
 }
