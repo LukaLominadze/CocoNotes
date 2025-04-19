@@ -1,6 +1,7 @@
 package com.example.coconotes
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecyclerViewInterface {
 
     private lateinit var noteCardModels: ArrayList<NoteCardModel>
 
@@ -23,21 +24,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         noteCardModels = ArrayList<NoteCardModel>()
-        setupNoteCardModels()
 
         val recyclerView = findViewById<RecyclerView>(R.id.NoteRecyclerView)
-        val recyclerViewAdapter = NoteCardRecyclerViewAdapter(this, noteCardModels)
+        val recyclerViewAdapter = NoteCardRecyclerViewAdapter(this, this, noteCardModels)
         recyclerView.adapter = recyclerViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val addNoteButton = findViewById<Button>(R.id.addNoteCardButton)
+        addNoteButton.setOnClickListener {
+            val newNote = NoteCardModel("New Note " + noteCardModels.size.toString(), "This is a dynamically added note.")
+            noteCardModels.add(newNote)
+            recyclerViewAdapter.notifyItemInserted(noteCardModels.size - 1)
+            recyclerView.scrollToPosition(noteCardModels.size - 1)
+        }
     }
 
-    private fun setupNoteCardModels() {
-        val titles = resources.getStringArray(R.array.notecards)
+    override fun onNodeClick(position: Int) {
 
-        noteCardModels.ensureCapacity(titles.size)
-
-        for(i in 0..titles.size-1) {
-            noteCardModels.add(NoteCardModel(titles[i], "Here is the first line of the note"))
-        }
     }
 }

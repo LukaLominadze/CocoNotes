@@ -1,12 +1,5 @@
 <resources>
     <string name="app_name">CocoNotes</string>
-
-    <string-array name="notecards">
-        <item>Title1</item>
-        <item>Title2</item>
-        <item>Title3</item>
-        <item>Title4</item>
-    </string-array>
 </resources>
 
 
